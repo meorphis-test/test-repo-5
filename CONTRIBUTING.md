@@ -42,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```bash
-npm install --save git+ssh://git@github.com:stainless-sdks/meorphis-test-5-ic7gid-node.git
+npm install --save git+ssh://git@github.com:meorphis-test-6/meorphis-test-6-node.git
 ```
 
 Alternatively, to link a local copy of the repo:
 
 ```bash
 # Clone
-git clone https://www.github.com/stainless-sdks/meorphis-test-5-ic7gid-node
-cd meorphis-test-5-ic7gid-node
+git clone https://www.github.com/meorphis-test-6/meorphis-test-6-node
+cd meorphis-test-6-node
 
 # With yarn
 yarn link
 cd ../my-package
-yarn link meorphis-test-5-ic7gid
+yarn link meorphis-test-6
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global meorphis-test-5-ic7gid
+pnpm link -—global meorphis-test-6
 ```
 
 ## Running tests
@@ -99,7 +99,7 @@ the changes aren't made through the automated pipeline, you may want to make rel
 
 ### Publish with a GitHub workflow
 
-You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/stainless-sdks/meorphis-test-5-ic7gid-node/actions/workflows/publish-npm.yml). This will require a setup organization or repository secret to be set up.
+You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/meorphis-test-6/meorphis-test-6-node/actions/workflows/publish-npm.yml). This will require a setup organization or repository secret to be set up.
 
 ### Publish manually
 

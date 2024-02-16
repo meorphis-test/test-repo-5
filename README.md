@@ -1,17 +1,17 @@
-# Meorphis Test 5 Ic7gid Node API Library
+# Meorphis Test 6 Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/meorphis-test-5-ic7gid.svg)](https://npmjs.org/package/meorphis-test-5-ic7gid)
+[![NPM version](https://img.shields.io/npm/v/meorphis-test-6.svg)](https://npmjs.org/package/meorphis-test-6)
 
-This library provides convenient access to the Meorphis Test 5 Ic7gid REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Meorphis Test 6 REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.meorphis-test-5-ic7gid.com](https://docs.meorphis-test-5-ic7gid.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found [on docs.meorphis-test-6.com](https://docs.meorphis-test-6.com). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-npm install --save meorphis-test-5-ic7gid
+npm install --save meorphis-test-6
 # or
-yarn add meorphis-test-5-ic7gid
+yarn add meorphis-test-6
 ```
 
 ## Usage
@@ -20,17 +20,19 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import MeorphisTest5Ic7gid from 'meorphis-test-5-ic7gid';
+import MeorphisTest6 from 'meorphis-test-6';
 
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid({
-  apiKey: process.env['MEORPHIS_TEST_5_IC7GID_API_KEY'], // This is the default and can be omitted
+const meorphisTest6 = new MeorphisTest6({
   environment: 'environment_1', // defaults to 'production'
+  apiKey: 'My API Key',
 });
 
 async function main() {
-  const statusRetrieveResponse = await meorphisTest5Ic7gid.status.retrieve();
+  const accountRetrieveResponse = await meorphisTest6.accounts.retrieve(
+    '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  );
 
-  console.log(statusRetrieveResponse.message);
+  console.log(accountRetrieveResponse.token);
 }
 
 main();
@@ -42,16 +44,16 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import MeorphisTest5Ic7gid from 'meorphis-test-5-ic7gid';
+import MeorphisTest6 from 'meorphis-test-6';
 
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid({
-  apiKey: process.env['MEORPHIS_TEST_5_IC7GID_API_KEY'], // This is the default and can be omitted
+const meorphisTest6 = new MeorphisTest6({
   environment: 'environment_1', // defaults to 'production'
+  apiKey: 'My API Key',
 });
 
 async function main() {
-  const statusRetrieveResponse: MeorphisTest5Ic7gid.StatusRetrieveResponse =
-    await meorphisTest5Ic7gid.status.retrieve();
+  const accountRetrieveResponse: MeorphisTest6.AccountRetrieveResponse =
+    await meorphisTest6.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
 }
 
 main();
@@ -68,15 +70,17 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const statusRetrieveResponse = await meorphisTest5Ic7gid.status.retrieve().catch((err) => {
-    if (err instanceof MeorphisTest5Ic7gid.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+  const accountRetrieveResponse = await meorphisTest6.accounts
+    .retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')
+    .catch((err) => {
+      if (err instanceof MeorphisTest6.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
 }
 
 main();
@@ -106,12 +110,13 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid({
+const meorphisTest6 = new MeorphisTest6({
   maxRetries: 0, // default is 2
+  apiKey: 'My API Key',
 });
 
 // Or, configure per-request:
-await meorphisTest5Ic7gid.status.retrieve({
+await meorphisTest6.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
   maxRetries: 5,
 });
 ```
@@ -123,12 +128,13 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid({
+const meorphisTest6 = new MeorphisTest6({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+  apiKey: 'My API Key',
 });
 
 // Override per-request:
-await meorphisTest5Ic7gid.status.retrieve({
+await meorphisTest6.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
   timeout: 5 * 1000,
 });
 ```
@@ -147,17 +153,17 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid();
+const meorphisTest6 = new MeorphisTest6();
 
-const response = await meorphisTest5Ic7gid.status.retrieve().asResponse();
+const response = await meorphisTest6.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: statusRetrieveResponse, response: raw } = await meorphisTest5Ic7gid.status
-  .retrieve()
+const { data: accountRetrieveResponse, response: raw } = await meorphisTest6.accounts
+  .retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(statusRetrieveResponse.message);
+console.log(accountRetrieveResponse.token);
 ```
 
 ## Customizing the fetch client
@@ -166,26 +172,26 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "MeorphisTest5Ic7gid"`:
+add the following import before your first import `from "MeorphisTest6"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'meorphis-test-5-ic7gid/shims/web';
-import MeorphisTest5Ic7gid from 'meorphis-test-5-ic7gid';
+import 'meorphis-test-6/shims/web';
+import MeorphisTest6 from 'meorphis-test-6';
 ```
 
-To do the inverse, add `import "meorphis-test-5-ic7gid/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/stainless-sdks/tree/main/src/_shims#readme).
+To do the inverse, add `import "meorphis-test-6/shims/node"` (which does import polyfills).
+This can also be useful if you are getting the wrong TypeScript types for `Response` - more details [here](https://github.com/meorphis-test-6/tree/v2/src/_shims#readme).
 
 You may also provide a custom `fetch` function when instantiating the client,
 which can be used to inspect or alter the `Request` or `Response` before/after each request:
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import MeorphisTest5Ic7gid from 'meorphis-test-5-ic7gid';
+import MeorphisTest6 from 'meorphis-test-6';
 
-const client = new MeorphisTest5Ic7gid({
+const client = new MeorphisTest6({
   fetch: async (url: RequestInfo, init?: RequestInfo): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -210,12 +216,13 @@ import http from 'http';
 import HttpsProxyAgent from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const meorphisTest5Ic7gid = new MeorphisTest5Ic7gid({
+const meorphisTest6 = new MeorphisTest6({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
+  apiKey: 'My API Key',
 });
 
 // Override per-request:
-await meorphisTest5Ic7gid.status.retrieve({
+await meorphisTest6.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
@@ -231,7 +238,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/meorphis-test-5-ic7gid-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/meorphis-test-6/meorphis-test-6-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
@@ -240,7 +247,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import MeorphisTest5Ic7gid from "npm:meorphis-test-5-ic7gid"`.
+- Deno v1.28.0 or higher, using `import MeorphisTest6 from "npm:meorphis-test-6"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.
