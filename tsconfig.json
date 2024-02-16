@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "meorphis-test-5-ic7gid/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "meorphis-test-5-ic7gid/*": ["src/*"],
-      "meorphis-test-5-ic7gid": ["src/index.ts"],
+      "meorphis-test-6/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "meorphis-test-6/*": ["src/*"],
+      "meorphis-test-6": ["src/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
